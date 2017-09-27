@@ -41,12 +41,11 @@ class Challenge(Checks):
         except Error as e:
             self.log = []
             raise e
-        self.log = []
 
     @check("qualifies")
     def benchmark(self):
         """passes benchmarking"""
-    
+
         # Timing data.
         self.data["time"] = {
             "load": 0.0,
@@ -58,9 +57,9 @@ class Challenge(Checks):
             out = self.spawn("./timer dictionaries/large texts/{}".format(text)).stdout(timeout=20)
             load, check, size, unload = map(float, out.split())
             self.data["time"]["load"] += load
-            self.data["time"]["check"] += check 
-            self.data["time"]["size"] += size 
-            self.data["time"]["unload"] += unload 
+            self.data["time"]["check"] += check
+            self.data["time"]["size"] += size
+            self.data["time"]["unload"] += unload
         self.data["time"]["total"] = self.data["time"]["load"] + self.data["time"]["check"] + \
                                      self.data["time"]["size"] + self.data["time"]["unload"]
 
@@ -68,7 +67,7 @@ class Challenge(Checks):
         # Memory data.
         self.spawn("valgrind --tool=massif --heap=yes --stacks=yes --massif-out-file=massif.out ./speller dictionaries/large texts/holmes.txt").stdout(timeout=20)
         f = open("massif.out")
-    
+
         heap = 0
         stack = 0
         re_heap = re.compile("mem_heap_B=(\d+)")

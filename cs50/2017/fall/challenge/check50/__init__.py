@@ -39,7 +39,6 @@ class Challenge(Checks):
 
         # Clear log to avoid clutter.
         except Error as e:
-            self.log = []
             raise e
 
     @check("qualifies")
